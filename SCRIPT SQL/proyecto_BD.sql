@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     25/1/2020 13:04:41                           */
+/* Created on:     26/01/2020 15:10:21                          */
 /*==============================================================*/
 
 
@@ -68,8 +68,8 @@ create table CALENDARIO
    CAL_ID               numeric(5,0) not null,
    PARTIDO_ID           numeric(5,0),
    CAMP_ID              numeric(4,0) not null,
-   CAL_FECHAINICIO      date not null,
-   CAL_FECHAFIN         date not null,
+   CAL_FECHA            date not null,
+   CAL_HORA             time not null,
    primary key (CAL_ID)
 );
 
@@ -139,7 +139,6 @@ create table EQUIPO
    GRUPO_ID             numeric(11,0) not null,
    CANCHA_ID            numeric(5,0) not null,
    TABLA_ID             numeric(5,0) not null,
-   CAL_ID               numeric(5,0),
    EQUI_NOMBRE          char(40) not null,
    EQUI_ESTADO          char(10) not null comment 'Aqui se guarda la informacion de si el equipo esta activo o no ',
    EQUI_LEMA            text not null,
@@ -202,6 +201,8 @@ create table PARTIDO
    PARTIDO_ID           numeric(5,0) not null,
    CANCHA_ID            numeric(5,0) not null,
    PARTIDO_FECHAPARTIDO date not null,
+   EQUIP_LOCAL          char(40) not null,
+   EQUIP_VISITA         char(40) not null,
    primary key (PARTIDO_ID)
 );
 
@@ -314,9 +315,6 @@ create table TIPO_CAMPEONATO
 alter table CALENDARIO add constraint FK_FECHA foreign key (PARTIDO_ID)
       references PARTIDO (PARTIDO_ID) on delete restrict on update restrict;
 
-alter table CALENDARIO add constraint FK_POSEE foreign key (CAMP_ID)
-      references CAMPEONATO (CAMP_ID) on delete restrict on update restrict;
-
 alter table CAMPEONATO add constraint FK_TIENE2 foreign key (TIPOCAMP_ID)
       references TIPO_CAMPEONATO (TIPOCAMP_ID) on delete restrict on update restrict;
 
@@ -338,29 +336,26 @@ alter table EQUIPO add constraint FK_ES_PARTE foreign key (GRUPO_ID)
 alter table EQUIPO add constraint FK_JUEGAN foreign key (CANCHA_ID)
       references CANCHA (CANCHA_ID) on delete restrict on update restrict;
 
-alter table EQUIPO add constraint FK_REGISTRA foreign key (CAL_ID)
-      references CALENDARIO (CAL_ID) on delete restrict on update restrict;
-
 alter table EQUIPO add constraint FK_REGISTRAR foreign key (TABLA_ID)
       references TABLA_POSICIONES (TABLA_ID) on delete restrict on update restrict;
 
-alter table EQUIPO_SERIE add constraint FK_RELATIONSHIP_26 foreign key (ID_SERIE)
+alter table EQUIPO_SERIE add constraint FK_ESTA_UBICADO foreign key (ID_SERIE)
       references SERIE (ID_SERIE) on delete restrict on update restrict;
 
-alter table EQUIPO_SERIE add constraint FK_RELATIONSHIP_27 foreign key (EQUI_ID)
+alter table EQUIPO_SERIE add constraint FK_POSEEE foreign key (EQUI_ID)
       references EQUIPO (EQUI_ID) on delete restrict on update restrict;
+
+alter table GRUPO add constraint FK_ABARCA foreign key (DIVISION_ID)
+      references DIVISION (DIVISION_ID) on delete restrict on update restrict;
 
 alter table GRUPO add constraint FK_REGISTRA_GRUPO2 foreign key (TABLA_ID)
       references TABLA_POSICIONES (TABLA_ID) on delete restrict on update restrict;
 
-alter table GRUPO add constraint FK_RELATIONSHIP_28 foreign key (DIVISION_ID)
-      references DIVISION (DIVISION_ID) on delete restrict on update restrict;
-
-alter table JUGADOR add constraint FK_RELATIONSHIP_19 foreign key (ID_PARTIDO_JUGADOR)
-      references PARTIDO_JUGADOR (ID_PARTIDO_JUGADOR) on delete restrict on update restrict;
-
-alter table JUGADOR add constraint FK_RELATIONSHIP_22 foreign key (ID_PART_SERIE_JUG)
+alter table JUGADOR add constraint FK_ENCUENTRA foreign key (ID_PART_SERIE_JUG)
       references PARTIDO_SERIE_JUGADOR (ID_PART_SERIE_JUG) on delete restrict on update restrict;
+
+alter table JUGADOR add constraint FK_TIENEE foreign key (ID_PARTIDO_JUGADOR)
+      references PARTIDO_JUGADOR (ID_PARTIDO_JUGADOR) on delete restrict on update restrict;
 
 alter table OBSERVACION add constraint FK_POSEER foreign key (PARTIDO_ID)
       references PARTIDO (PARTIDO_ID) on delete restrict on update restrict;
@@ -368,19 +363,19 @@ alter table OBSERVACION add constraint FK_POSEER foreign key (PARTIDO_ID)
 alter table PARTIDO add constraint FK_SE_JUEGAN foreign key (CANCHA_ID)
       references CANCHA (CANCHA_ID) on delete restrict on update restrict;
 
-alter table PARTIDO_JUGADOR add constraint FK_RELATIONSHIP_18 foreign key (PARTIDO_ID)
+alter table PARTIDO_JUGADOR add constraint FK_JUEGA foreign key (PARTIDO_ID)
       references PARTIDO (PARTIDO_ID) on delete restrict on update restrict;
 
-alter table PARTIDO_SERIE add constraint FK_RELATIONSHIP_20 foreign key (PARTIDO_ID)
+alter table PARTIDO_SERIE add constraint FK_ESTA foreign key (PARTIDO_ID)
       references PARTIDO (PARTIDO_ID) on delete restrict on update restrict;
 
-alter table PARTIDO_SERIE add constraint FK_RELATIONSHIP_21 foreign key (ID_PART_SERIE_JUG)
-      references PARTIDO_SERIE_JUGADOR (ID_PART_SERIE_JUG) on delete restrict on update restrict;
-
-alter table PARTIDO_SERIE add constraint FK_RELATIONSHIP_24 foreign key (ID_SERIE)
+alter table PARTIDO_SERIE add constraint FK_ESTAA foreign key (ID_SERIE)
       references SERIE (ID_SERIE) on delete restrict on update restrict;
 
-alter table PARTIDO_SERIE_JUGADOR add constraint FK_RELATIONSHIP_23 foreign key (TARJ_ID)
+alter table PARTIDO_SERIE add constraint FK_ETS foreign key (ID_PART_SERIE_JUG)
+      references PARTIDO_SERIE_JUGADOR (ID_PART_SERIE_JUG) on delete restrict on update restrict;
+
+alter table PARTIDO_SERIE_JUGADOR add constraint FK_OBTUVO foreign key (TARJ_ID)
       references TARJETA_JUGADOR (TARJ_ID) on delete restrict on update restrict;
 
 alter table PITAR add constraint FK_EJERCE foreign key (PARTIDO_ID)
@@ -389,7 +384,7 @@ alter table PITAR add constraint FK_EJERCE foreign key (PARTIDO_ID)
 alter table PITAR add constraint FK_TIENE foreign key (ARBITRO_ID)
       references ARBITRO (ARBITRO_ID) on delete restrict on update restrict;
 
-alter table SERIE add constraint FK_RELATIONSHIP_25 foreign key (TABLA_ID)
+alter table SERIE add constraint FK_NECESITA foreign key (TABLA_ID)
       references TABLA_POSICIONES (TABLA_ID) on delete restrict on update restrict;
 
 alter table TABLA_POSICIONES add constraint FK_PERTENECE foreign key (CAMP_ID)
