@@ -1,304 +1,237 @@
--- phpMyAdmin SQL Dump
--- version 4.6.6
--- https://www.phpmyadmin.net/
---
--- Servidor: localhost
--- Tiempo de generación: 26-01-2020 a las 20:10:40
--- Versión del servidor: 5.7.17-log
--- Versión de PHP: 5.6.30
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     26/1/2020 17:39:11                           */
+/*==============================================================*/
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+drop table if exists ARBITRO;
 
---
--- Base de datos: `proyecto_bdnuevo`
---
+drop table if exists CALENDARIO;
 
--- --------------------------------------------------------
+drop table if exists CAMPEONATO;
 
---
--- Estructura de tabla para la tabla `arbitro`
---
+drop table if exists CANCHA;
 
-CREATE TABLE `arbitro` (
-  `ARBITRO_ID` decimal(5,0) NOT NULL,
-  `ARBITRO_NOMBRE` char(20) NOT NULL,
-  `ARBITRO_APELLIDO` char(20) NOT NULL,
-  `ARBITRO_TELEFONO` char(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+drop table if exists DIVISION;
 
--- --------------------------------------------------------
+drop table if exists EQUIPO;
 
---
--- Estructura de tabla para la tabla `campeonato`
---
+drop table if exists JORNADA;
 
-CREATE TABLE `campeonato` (
-  `CAMP_ID` decimal(4,0) NOT NULL,
-  `DIVISION_ID` decimal(11,0) NOT NULL,
-  `TIPOCAMP_ID` decimal(5,0) NOT NULL,
-  `CAMP_NOMBRE` char(40) NOT NULL,
-  `CAMP_FECHAINICIO` date NOT NULL,
-  `CAMP_FECHAFIN` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+drop table if exists JUGADOR;
 
--- --------------------------------------------------------
+drop table if exists JUGAR;
 
---
--- Estructura de tabla para la tabla `cancha`
---
+drop table if exists PARTIDO;
 
-CREATE TABLE `cancha` (
-  `CANCHA_ID` decimal(5,0) NOT NULL,
-  `CANCHA_NOMBRE` char(40) NOT NULL,
-  `CANCHA_DIRECICON` char(40) NOT NULL,
-  `CANCHA_MAXPERSONA` decimal(5,0) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+drop table if exists TABLA_POSICIONES;
 
--- --------------------------------------------------------
+drop table if exists TARJETA_JUGADOR;
 
---
--- Estructura de tabla para la tabla `division`
---
+drop table if exists TIPO_CAMPEONATO;
 
-CREATE TABLE `division` (
-  `DIVISION_ID` decimal(11,0) NOT NULL,
-  `DIVISION_DETALLE` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*==============================================================*/
+/* Table: ARBITRO                                               */
+/*==============================================================*/
+create table ARBITRO
+(
+   ARBITRO_ID           numeric(5,0) not null,
+   ARBITRO_NOMBRE       char(20) not null,
+   ARBITRO_APELLIDO     char(20) not null,
+   ARBITRO_TELEFONO     char(10) not null,
+   primary key (ARBITRO_ID)
+);
 
--- --------------------------------------------------------
+/*==============================================================*/
+/* Table: CALENDARIO                                            */
+/*==============================================================*/
+create table CALENDARIO
+(
+   CALENDARIO_ID        int not null,
+   JORNADA_ID           int,
+   CALENDARIO_FECHA     date,
+   primary key (CALENDARIO_ID)
+);
 
---
--- Estructura de tabla para la tabla `equipo`
---
+/*==============================================================*/
+/* Table: CAMPEONATO                                            */
+/*==============================================================*/
+create table CAMPEONATO
+(
+   CAMP_ID              numeric(4,0) not null,
+   DIVISION_ID          numeric(11,0) not null,
+   TIPOCAMP_ID          numeric(5,0) not null,
+   CAMP_NOMBRE          char(40) not null,
+   CAMP_FECHAINICIO     date not null,
+   CAMP_FECHAFIN        date not null,
+   primary key (CAMP_ID)
+);
 
-CREATE TABLE `equipo` (
-  `EQUI_ID` decimal(5,0) NOT NULL,
-  `JUG_ID` decimal(4,0) NOT NULL,
-  `CAMP_ID` decimal(4,0) NOT NULL,
-  `EQUI_NOMBRE` char(40) NOT NULL,
-  `EQUI_ESTADO` char(10) NOT NULL COMMENT 'Aqui se guarda la informacion de si el equipo esta activo o no ',
-  `EQUI_LEMA` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*==============================================================*/
+/* Table: CANCHA                                                */
+/*==============================================================*/
+create table CANCHA
+(
+   CANCHA_ID            numeric(5,0) not null,
+   CANCHA_NOMBRE        char(40) not null,
+   CANCHA_DIRECICON     char(40) not null,
+   CANCHA_MAXPERSONA    numeric(5,0) not null,
+   primary key (CANCHA_ID)
+);
 
--- --------------------------------------------------------
+/*==============================================================*/
+/* Table: DIVISION                                              */
+/*==============================================================*/
+create table DIVISION
+(
+   DIVISION_ID          numeric(11,0) not null,
+   DIVISION_DETALLE     text,
+   primary key (DIVISION_ID)
+);
 
---
--- Estructura de tabla para la tabla `jugador`
---
+/*==============================================================*/
+/* Table: EQUIPO                                                */
+/*==============================================================*/
+create table EQUIPO
+(
+   EQUI_ID              numeric(5,0) not null,
+   JUG_ID               numeric(4,0) not null,
+   CAMP_ID              numeric(4,0) not null,
+   EQUI_NOMBRE          char(40) not null,
+   EQUI_ESTADO          char(10) not null comment 'Aqui se guarda la informacion de si el equipo esta activo o no ',
+   EQUI_LEMA            text not null,
+   primary key (EQUI_ID)
+);
 
-CREATE TABLE `jugador` (
-  `JUG_ID` decimal(4,0) NOT NULL,
-  `TARJ_ID` decimal(5,0) DEFAULT NULL,
-  `JUG_NOMBRE` char(20) NOT NULL,
-  `JUG_APELLIDO` char(20) NOT NULL,
-  `JUG_FECHANACIMIENTO` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*==============================================================*/
+/* Table: JORNADA                                               */
+/*==============================================================*/
+create table JORNADA
+(
+   JORNADA_ID           int not null,
+   PARTIDO_ID           numeric(5,0),
+   JORNADA_FECHA        time,
+   primary key (JORNADA_ID)
+);
 
--- --------------------------------------------------------
+/*==============================================================*/
+/* Table: JUGADOR                                               */
+/*==============================================================*/
+create table JUGADOR
+(
+   JUG_ID               numeric(4,0) not null,
+   TARJ_ID              numeric(5,0),
+   JUG_NOMBRE           char(20) not null,
+   JUG_APELLIDO         char(20) not null,
+   JUG_FECHANACIMIENTO  date not null,
+   primary key (JUG_ID)
+);
 
---
--- Estructura de tabla para la tabla `jugar`
---
+/*==============================================================*/
+/* Table: JUGAR                                                 */
+/*==============================================================*/
+create table JUGAR
+(
+   PARTIDO_ID           numeric(5,0) not null,
+   EQUI_ID              numeric(5,0) not null,
+   GOLES                int,
+   RESULTADO            int,
+   primary key (PARTIDO_ID, EQUI_ID)
+);
 
-CREATE TABLE `jugar` (
-  `PARTIDO_ID` decimal(5,0) NOT NULL,
-  `EQUI_ID` decimal(5,0) NOT NULL,
-  `GOLES` int(11) DEFAULT NULL,
-  `RESULTADO` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*==============================================================*/
+/* Table: PARTIDO                                               */
+/*==============================================================*/
+create table PARTIDO
+(
+   PARTIDO_ID           numeric(5,0) not null,
+   CAMP_ID              numeric(4,0) not null,
+   ARBITRO_ID           numeric(5,0) not null,
+   CANCHA_ID            numeric(5,0),
+   PARTIDO_FECHAPARTIDO date not null,
+   PARTIDO_HORA         time not null,
+   PARTIDO_JORNADA      char(40) not null,
+   primary key (PARTIDO_ID)
+);
 
--- --------------------------------------------------------
+/*==============================================================*/
+/* Table: TABLA_POSICIONES                                      */
+/*==============================================================*/
+create table TABLA_POSICIONES
+(
+   TABLA_ID             numeric(5,0) not null,
+   EQUI_ID              numeric(5,0) not null,
+   PARTIDO_ID           numeric(5,0),
+   JUG_EQUI_ID          numeric(5,0),
+   TABLA_PARTIDOSJUGADOS numeric(5,0) not null,
+   TABLA_PARTIDOSGANADOS numeric(5,0) not null,
+   TABLA_PARTIDOSPERDIDOS numeric(5,0) not null,
+   TABLA_GOLESFAVOR     numeric(5,0) not null,
+   TABLA_GOLESCONTRA    numeric(5,0) not null,
+   TABLA_PUNTOS         numeric(5,0) not null,
+   primary key (TABLA_ID)
+);
 
---
--- Estructura de tabla para la tabla `partido`
---
+/*==============================================================*/
+/* Table: TARJETA_JUGADOR                                       */
+/*==============================================================*/
+create table TARJETA_JUGADOR
+(
+   TARJ_ID              numeric(5,0) not null,
+   TARJ_FECHA           date not null,
+   TARJ_CANTIDAD        numeric(3,0) not null,
+   primary key (TARJ_ID)
+);
 
-CREATE TABLE `partido` (
-  `PARTIDO_ID` decimal(5,0) NOT NULL,
-  `CAMP_ID` decimal(4,0) NOT NULL,
-  `ARBITRO_ID` decimal(5,0) NOT NULL,
-  `CANCHA_ID` decimal(5,0) DEFAULT NULL,
-  `PARTIDO_FECHAPARTIDO` date NOT NULL,
-  `PARTIDO_HORA` time NOT NULL,
-  `PARTIDO_JORNADA` char(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*==============================================================*/
+/* Table: TIPO_CAMPEONATO                                       */
+/*==============================================================*/
+create table TIPO_CAMPEONATO
+(
+   TIPOCAMP_ID          numeric(5,0) not null,
+   TIPOCAMP_TIPO        char(40) not null,
+   primary key (TIPOCAMP_ID)
+);
 
--- --------------------------------------------------------
+alter table CALENDARIO add constraint FK_REFERENCE_14 foreign key (JORNADA_ID)
+      references JORNADA (JORNADA_ID) on delete restrict on update restrict;
 
---
--- Estructura de tabla para la tabla `tabla_posiciones`
---
+alter table CAMPEONATO add constraint FK_ES foreign key (TIPOCAMP_ID)
+      references TIPO_CAMPEONATO (TIPOCAMP_ID) on delete restrict on update restrict;
 
-CREATE TABLE `tabla_posiciones` (
-  `TABLA_ID` decimal(5,0) NOT NULL,
-  `EQUI_ID` decimal(5,0) NOT NULL,
-  `PARTIDO_ID` decimal(5,0) DEFAULT NULL,
-  `JUG_EQUI_ID` decimal(5,0) DEFAULT NULL,
-  `TABLA_PARTIDOSJUGADOS` decimal(5,0) NOT NULL,
-  `TABLA_PARTIDOSGANADOS` decimal(5,0) NOT NULL,
-  `TABLA_PARTIDOSPERDIDOS` decimal(5,0) NOT NULL,
-  `TABLA_GOLESFAVOR` decimal(5,0) NOT NULL,
-  `TABLA_GOLESCONTRA` decimal(5,0) NOT NULL,
-  `TABLA_PUNTOS` decimal(5,0) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+alter table CAMPEONATO add constraint FK_ESTA foreign key (DIVISION_ID)
+      references DIVISION (DIVISION_ID) on delete restrict on update restrict;
 
--- --------------------------------------------------------
+alter table EQUIPO add constraint FK_JUEGA foreign key (JUG_ID)
+      references JUGADOR (JUG_ID) on delete restrict on update restrict;
 
---
--- Estructura de tabla para la tabla `tarjeta_jugador`
---
+alter table EQUIPO add constraint FK_NECESITA foreign key (CAMP_ID)
+      references CAMPEONATO (CAMP_ID) on delete restrict on update restrict;
 
-CREATE TABLE `tarjeta_jugador` (
-  `TARJ_ID` decimal(5,0) NOT NULL,
-  `TARJ_FECHA` date NOT NULL,
-  `TARJ_CANTIDAD` decimal(3,0) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+alter table JORNADA add constraint FK_REFERENCE_13 foreign key (PARTIDO_ID)
+      references PARTIDO (PARTIDO_ID) on delete restrict on update restrict;
 
--- --------------------------------------------------------
+alter table JUGADOR add constraint FK_POSEE foreign key (TARJ_ID)
+      references TARJETA_JUGADOR (TARJ_ID) on delete restrict on update restrict;
 
---
--- Estructura de tabla para la tabla `tipo_campeonato`
---
+alter table JUGAR add constraint FK_JUGAR foreign key (PARTIDO_ID)
+      references PARTIDO (PARTIDO_ID) on delete restrict on update restrict;
 
-CREATE TABLE `tipo_campeonato` (
-  `TIPOCAMP_ID` decimal(5,0) NOT NULL,
-  `TIPOCAMP_TIPO` char(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+alter table JUGAR add constraint FK_JUGAR2 foreign key (EQUI_ID)
+      references EQUIPO (EQUI_ID) on delete restrict on update restrict;
 
---
--- Índices para tablas volcadas
---
+alter table PARTIDO add constraint FK_ARBITRAR foreign key (ARBITRO_ID)
+      references ARBITRO (ARBITRO_ID) on delete restrict on update restrict;
 
---
--- Indices de la tabla `arbitro`
---
-ALTER TABLE `arbitro`
-  ADD PRIMARY KEY (`ARBITRO_ID`);
+alter table PARTIDO add constraint FK_PERTENECE foreign key (CAMP_ID)
+      references CAMPEONATO (CAMP_ID) on delete restrict on update restrict;
 
---
--- Indices de la tabla `campeonato`
---
-ALTER TABLE `campeonato`
-  ADD PRIMARY KEY (`CAMP_ID`),
-  ADD KEY `FK_ES` (`TIPOCAMP_ID`),
-  ADD KEY `FK_ESTA` (`DIVISION_ID`);
+alter table PARTIDO add constraint FK_SE_JUEGA foreign key (CANCHA_ID)
+      references CANCHA (CANCHA_ID) on delete restrict on update restrict;
 
---
--- Indices de la tabla `cancha`
---
-ALTER TABLE `cancha`
-  ADD PRIMARY KEY (`CANCHA_ID`);
+alter table TABLA_POSICIONES add constraint FK_REFERENCE_12 foreign key (PARTIDO_ID, JUG_EQUI_ID)
+      references JUGAR (PARTIDO_ID, EQUI_ID) on delete restrict on update restrict;
 
---
--- Indices de la tabla `division`
---
-ALTER TABLE `division`
-  ADD PRIMARY KEY (`DIVISION_ID`);
+alter table TABLA_POSICIONES add constraint FK_TIENE foreign key (EQUI_ID)
+      references EQUIPO (EQUI_ID) on delete restrict on update restrict;
 
---
--- Indices de la tabla `equipo`
---
-ALTER TABLE `equipo`
-  ADD PRIMARY KEY (`EQUI_ID`),
-  ADD KEY `FK_JUEGA` (`JUG_ID`),
-  ADD KEY `FK_NECESITA` (`CAMP_ID`);
-
---
--- Indices de la tabla `jugador`
---
-ALTER TABLE `jugador`
-  ADD PRIMARY KEY (`JUG_ID`),
-  ADD KEY `FK_POSEE` (`TARJ_ID`);
-
---
--- Indices de la tabla `jugar`
---
-ALTER TABLE `jugar`
-  ADD PRIMARY KEY (`PARTIDO_ID`,`EQUI_ID`),
-  ADD KEY `FK_JUGAR2` (`EQUI_ID`);
-
---
--- Indices de la tabla `partido`
---
-ALTER TABLE `partido`
-  ADD PRIMARY KEY (`PARTIDO_ID`),
-  ADD KEY `FK_ARBITRAR` (`ARBITRO_ID`),
-  ADD KEY `FK_PERTENECE` (`CAMP_ID`),
-  ADD KEY `FK_SE_JUEGA` (`CANCHA_ID`);
-
---
--- Indices de la tabla `tabla_posiciones`
---
-ALTER TABLE `tabla_posiciones`
-  ADD PRIMARY KEY (`TABLA_ID`),
-  ADD KEY `FK_REFERENCE_12` (`PARTIDO_ID`,`JUG_EQUI_ID`),
-  ADD KEY `FK_TIENE` (`EQUI_ID`);
-
---
--- Indices de la tabla `tarjeta_jugador`
---
-ALTER TABLE `tarjeta_jugador`
-  ADD PRIMARY KEY (`TARJ_ID`);
-
---
--- Indices de la tabla `tipo_campeonato`
---
-ALTER TABLE `tipo_campeonato`
-  ADD PRIMARY KEY (`TIPOCAMP_ID`);
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `campeonato`
---
-ALTER TABLE `campeonato`
-  ADD CONSTRAINT `FK_ES` FOREIGN KEY (`TIPOCAMP_ID`) REFERENCES `tipo_campeonato` (`TIPOCAMP_ID`),
-  ADD CONSTRAINT `FK_ESTA` FOREIGN KEY (`DIVISION_ID`) REFERENCES `division` (`DIVISION_ID`);
-
---
--- Filtros para la tabla `equipo`
---
-ALTER TABLE `equipo`
-  ADD CONSTRAINT `FK_JUEGA` FOREIGN KEY (`JUG_ID`) REFERENCES `jugador` (`JUG_ID`),
-  ADD CONSTRAINT `FK_NECESITA` FOREIGN KEY (`CAMP_ID`) REFERENCES `campeonato` (`CAMP_ID`);
-
---
--- Filtros para la tabla `jugador`
---
-ALTER TABLE `jugador`
-  ADD CONSTRAINT `FK_POSEE` FOREIGN KEY (`TARJ_ID`) REFERENCES `tarjeta_jugador` (`TARJ_ID`);
-
---
--- Filtros para la tabla `jugar`
---
-ALTER TABLE `jugar`
-  ADD CONSTRAINT `FK_JUGAR` FOREIGN KEY (`PARTIDO_ID`) REFERENCES `partido` (`PARTIDO_ID`),
-  ADD CONSTRAINT `FK_JUGAR2` FOREIGN KEY (`EQUI_ID`) REFERENCES `equipo` (`EQUI_ID`);
-
---
--- Filtros para la tabla `partido`
---
-ALTER TABLE `partido`
-  ADD CONSTRAINT `FK_ARBITRAR` FOREIGN KEY (`ARBITRO_ID`) REFERENCES `arbitro` (`ARBITRO_ID`),
-  ADD CONSTRAINT `FK_PERTENECE` FOREIGN KEY (`CAMP_ID`) REFERENCES `campeonato` (`CAMP_ID`),
-  ADD CONSTRAINT `FK_SE_JUEGA` FOREIGN KEY (`CANCHA_ID`) REFERENCES `cancha` (`CANCHA_ID`);
-
---
--- Filtros para la tabla `tabla_posiciones`
---
-ALTER TABLE `tabla_posiciones`
-  ADD CONSTRAINT `FK_REFERENCE_12` FOREIGN KEY (`PARTIDO_ID`,`JUG_EQUI_ID`) REFERENCES `jugar` (`PARTIDO_ID`, `EQUI_ID`),
-  ADD CONSTRAINT `FK_TIENE` FOREIGN KEY (`EQUI_ID`) REFERENCES `equipo` (`EQUI_ID`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
