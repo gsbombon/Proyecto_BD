@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     26/1/2020 17:39:11                           */
+/* Created on:     27/1/2020 11:24:26                           */
 /*==============================================================*/
 
 
@@ -49,7 +49,7 @@ create table CALENDARIO
 (
    CALENDARIO_ID        int not null,
    JORNADA_ID           int,
-   CALENDARIO_FECHA     date,
+   CAMP_ID              numeric(4,0),
    primary key (CALENDARIO_ID)
 );
 
@@ -109,8 +109,7 @@ create table EQUIPO
 create table JORNADA
 (
    JORNADA_ID           int not null,
-   PARTIDO_ID           numeric(5,0),
-   JORNADA_FECHA        time,
+   JORNADA_FECHA        date,
    primary key (JORNADA_ID)
 );
 
@@ -145,12 +144,10 @@ create table JUGAR
 create table PARTIDO
 (
    PARTIDO_ID           numeric(5,0) not null,
-   CAMP_ID              numeric(4,0) not null,
    ARBITRO_ID           numeric(5,0) not null,
    CANCHA_ID            numeric(5,0),
-   PARTIDO_FECHAPARTIDO date not null,
+   JORNADA_ID           int,
    PARTIDO_HORA         time not null,
-   PARTIDO_JORNADA      char(40) not null,
    primary key (PARTIDO_ID)
 );
 
@@ -163,6 +160,7 @@ create table TABLA_POSICIONES
    EQUI_ID              numeric(5,0) not null,
    PARTIDO_ID           numeric(5,0),
    JUG_EQUI_ID          numeric(5,0),
+   CAMP_ID              numeric(4,0),
    TABLA_PARTIDOSJUGADOS numeric(5,0) not null,
    TABLA_PARTIDOSGANADOS numeric(5,0) not null,
    TABLA_PARTIDOSPERDIDOS numeric(5,0) not null,
@@ -196,6 +194,9 @@ create table TIPO_CAMPEONATO
 alter table CALENDARIO add constraint FK_REFERENCE_14 foreign key (JORNADA_ID)
       references JORNADA (JORNADA_ID) on delete restrict on update restrict;
 
+alter table CALENDARIO add constraint FK_REFERENCE_16 foreign key (CAMP_ID)
+      references CAMPEONATO (CAMP_ID) on delete restrict on update restrict;
+
 alter table CAMPEONATO add constraint FK_ES foreign key (TIPOCAMP_ID)
       references TIPO_CAMPEONATO (TIPOCAMP_ID) on delete restrict on update restrict;
 
@@ -207,9 +208,6 @@ alter table EQUIPO add constraint FK_JUEGA foreign key (JUG_ID)
 
 alter table EQUIPO add constraint FK_NECESITA foreign key (CAMP_ID)
       references CAMPEONATO (CAMP_ID) on delete restrict on update restrict;
-
-alter table JORNADA add constraint FK_REFERENCE_13 foreign key (PARTIDO_ID)
-      references PARTIDO (PARTIDO_ID) on delete restrict on update restrict;
 
 alter table JUGADOR add constraint FK_POSEE foreign key (TARJ_ID)
       references TARJETA_JUGADOR (TARJ_ID) on delete restrict on update restrict;
@@ -223,14 +221,17 @@ alter table JUGAR add constraint FK_JUGAR2 foreign key (EQUI_ID)
 alter table PARTIDO add constraint FK_ARBITRAR foreign key (ARBITRO_ID)
       references ARBITRO (ARBITRO_ID) on delete restrict on update restrict;
 
-alter table PARTIDO add constraint FK_PERTENECE foreign key (CAMP_ID)
-      references CAMPEONATO (CAMP_ID) on delete restrict on update restrict;
+alter table PARTIDO add constraint FK_REFERENCE_17 foreign key (JORNADA_ID)
+      references JORNADA (JORNADA_ID) on delete restrict on update restrict;
 
 alter table PARTIDO add constraint FK_SE_JUEGA foreign key (CANCHA_ID)
       references CANCHA (CANCHA_ID) on delete restrict on update restrict;
 
 alter table TABLA_POSICIONES add constraint FK_REFERENCE_12 foreign key (PARTIDO_ID, JUG_EQUI_ID)
       references JUGAR (PARTIDO_ID, EQUI_ID) on delete restrict on update restrict;
+
+alter table TABLA_POSICIONES add constraint FK_REFERENCE_15 foreign key (CAMP_ID)
+      references CAMPEONATO (CAMP_ID) on delete restrict on update restrict;
 
 alter table TABLA_POSICIONES add constraint FK_TIENE foreign key (EQUI_ID)
       references EQUIPO (EQUI_ID) on delete restrict on update restrict;
