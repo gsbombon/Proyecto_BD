@@ -5,7 +5,7 @@ class conecta
   var $DB_USER='admin';
   var $DB_PASS='admin';
   var $DB_HOST='localhost';
-  var $DB_NAME='proyecto_bdfinal';
+  var $DB_NAME='campeonatobd';
    
   function get_dbuser()
   {

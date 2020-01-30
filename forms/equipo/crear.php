@@ -60,7 +60,7 @@ if(isset($_POST['Crear'])){
                 </div>
             </div>
             <?php
-            include("../../php/validarEquipo.php");
+            include("validarEquipo.php");
             ?>
             <input type="submit" name="Crear" class="btn btn-primary">Registrar</input>
         </form>

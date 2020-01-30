@@ -62,6 +62,7 @@
     <link href="SpryAssets/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
     <script src="SpryAssets/SpryMenuBar.js" type="text/javascript"></script>
     <link rel="stylesheet" href="../Css/estilos.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
@@ -77,38 +78,18 @@
 
     <div id="apDiv2">
 
-        <table class="tabla" width="726" height="159" border="1">
-
-            <tr class="cabecera">
-                <td width="32" height="40">
-                    <div align="center">
-                        <h3>Id</h3>
-                    </div>
-                </td>
-                <td width="107">
-                    <div align="center">
-                        <h3>Nombre Equipo</h3>
-                    </div>
-                </td>
-                <td width="129">
-                    <div align="center">
-                        <h3>Email</h3>
-                    </div>
-                </td>
-                <td width="129">
-                    <div align="center">
-                        <h3>Lema</h3>
-                    </div>
-                </td>
-                <td width="80">
-                    <div align="center">
-                        <h3>Modificar</h3>
-                    </div>
-                </td>
-            </tr>
-
+	<table class="table" width="100%" height="20%" border="1" >
+				<thead class="thead-dark">
+					<tr>
+					  <th scope="col">ID</th>
+					  <th scope="col">Nombre Equipo</th>
+					  <th scope="col">Email</th>
+					  <th scope="col">Lema</th>
+					  <th scope="col">Accion</th>
+					</tr>
+				  </thead>
             <?php
-    $conexion=mysqli_connect("localhost","admin","admin","proyecto_bdfinal");
+    $conexion=mysqli_connect("localhost","admin","admin","campeonatobd");
     $consulta="SELECT * FROM equipo";
     $resultado=mysqli_query($conexion,$consulta);
     while($fila = $resultado->fetch_assoc()){

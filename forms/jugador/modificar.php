@@ -30,7 +30,7 @@ if(isset($_POST['Crear'])){
 
    <?php
     $id=$_REQUEST['id'];
-    $conexion=mysqli_connect("localhost","admin","admin","proyecto_bdfinal");
+    $conexion=mysqli_connect("localhost","admin","admin","campeonatobd");
     $consulta="SELECT * FROM jugador WHERE JUG_ID = '$id'";
     $resultado=mysqli_query($conexion,$consulta);
     $fila = $resultado->fetch_assoc();

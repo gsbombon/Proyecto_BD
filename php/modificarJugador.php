@@ -1,6 +1,6 @@
 <?php
 
-$conexion=mysqli_connect("localhost","admin","admin","proyecto_bdfinal");
+$conexion=mysqli_connect("localhost","admin","admin","campeonatobd");
 
  $id=$_REQUEST['id'];
  $jug_nombre=$_POST["nombre"];
