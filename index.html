@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="css/swiper.min.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="css/style.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 			<script>
 			$(document).ready(function(){
 	    		$('#btn-inicio').click(function(){
@@ -30,7 +31,7 @@
 	    									 });
 
 	    		$('#btn-posiciones').click(function(){
-	       		$("#contenido").load("posiciones.html");
+	       		$("#contenido").load("forms/tablasPosiciones/posiciones.php");
 	    									 });
 
 	    		$('#btn-acerca').click(function(){
@@ -84,7 +85,7 @@
                                             Tabla Posiciones
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="forms/tablasPosiciones/posiciones.html">Categoria Maxima</a>
+                                            <a class="dropdown-item" href="#" id="btn-posiciones">Categoria Maxima</a>
                                             <a class="dropdown-item" href="forms/tablasPosiciones/posiciones primera.html">Categoria Primera</a>
 											<a class="dropdown-item" href="forms/tablasPosiciones/posiciones segunda.html">Categoria Segunda</a>
                                         </div>

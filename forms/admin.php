@@ -113,9 +113,9 @@
                                             Tabla Posiciones
                                         </a>
                                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">Categoria Maxima</a>
-                                            <a class="dropdown-item" href="#">Categoria Primera</a>
-                                            <a class="dropdown-item" href="#">Categoria Segunda</a>
+                                            <a class="tablaPosiciones" onclick="prueba(this.className)">Categoria Maxima</a>
+                                            <a class="dropdown-item" onclick="prueba(this.className)">Categoria Primera</a>
+                                            <a class="dropdown-item" onclick="prueba(this.className)">Categoria Segunda</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
