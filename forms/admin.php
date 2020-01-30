@@ -134,6 +134,18 @@
                                             <a class="dropdown-item" href="../forms/arbitro/modificarDatos.php" id="btnModifArbitro">Modificar</a>
                                         </div>
                                     </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="AsignarResultados/campeonato.php" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Ásignar Resultados
+                                        </a>
+                  
+                                    </li>
+                                      <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="generarPartidos.php" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Generar Calendario
+                                        </a>
+                  
+                                    </li>
                                 </ul>
                                 <div class="header_social_icon d-none d-lg-block">
                                     <ul>
