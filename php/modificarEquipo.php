@@ -12,7 +12,7 @@ $id=$_REQUEST['id'];
 
     if($resultado)
     {
-      header("Location: ../forms/jugador/modificarDatos.php");
+      header("Location: ../forms/equipo/modificarDatos.php");
     }
     else
     {

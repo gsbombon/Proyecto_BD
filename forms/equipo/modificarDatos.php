@@ -3,7 +3,7 @@
 
 <head>
     <meta charset='utf-8'>
-    <title>Productos disponibles</title>
+    <title>Modificar Datos Equipo</title>
     <style type="text/css">
         body {
             background-image: url(img/bg.jpg);

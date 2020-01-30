@@ -13,7 +13,7 @@ $camp_fechaFin=$_POST["fechaFin"];
 
     if($resultado)
     {
-      header("Location: ../forms/jugador/modificarDatos.php");
+      header("Location: ../forms/campeonato/modificarDatos.php");
     }
     else
     {

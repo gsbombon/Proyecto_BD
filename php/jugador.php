@@ -10,7 +10,7 @@ $jug_dorsal=$_POST["dorsal"];
    $Obj_UsuarioBT=new UsuarioBT(); 
     if ($Obj_UsuarioBT->guardar_jugador($jug_equipo,$jug_nombre,$jug_apellido,$jug_dorsal,$jug_fecha))
     {
-      echo '<script languaje="Javascript">location.href="../formulario/registrarMateria.php"</script>';
+      echo '<script languaje="Javascript">location.href="../forms/admin.php"</script>';
     }
     else
     {

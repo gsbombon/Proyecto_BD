@@ -49,7 +49,7 @@ if(isset($_POST['Crear'])){
                     <label for="inputDorsal">Dorsal</label>
                     <input type="text" class="form-control" name="dorsal" id="dorsal" value="<?php if(isset($dorsal)) echo $dorsal ?>" placeholder="Dorsal">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-8">
                     <label for="inputFechaNac">Fecha de Nacimiento</label>
                     <input type="date" class="form-control" name="fecha" id="fecha" value="<?php if(isset($dorsal)) echo $dorsal ?>" placeholder="Fecha">
                 </div>
