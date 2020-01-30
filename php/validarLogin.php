@@ -1,6 +1,6 @@
 <?php
 //require ("../data/conexion.php");
-$conexion=mysqli_connect("localhost","admin","admin","proyecto_bdfinal");
+$conexion=mysqli_connect("localhost","admin","admin","campeonatobd");
 session_start();
 
 $usuario=$_POST["user"];
