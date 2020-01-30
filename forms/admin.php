@@ -25,7 +25,12 @@
     <link rel="stylesheet" href="../css/style.css">
 
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+	<script
+	src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
     <script>
+		
         /*			$(document).ready(function(){
 	    		$('#btnCrearCampeonato').click(function(){
 	       		$("#contenido").attr('src', 'campeonato/crear.html');
@@ -109,14 +114,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Tabla Posiciones
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="tablaPosiciones" onclick="prueba(this.className)">Categoria Maxima</a>
-                                            <a class="dropdown-item" onclick="prueba(this.className)">Categoria Primera</a>
-                                            <a class="dropdown-item" onclick="prueba(this.className)">Categoria Segunda</a>
-                                        </div>
+										<a class="nav-link" href="tablasPosiciones/posiciones.php">TABLA DE POSICIONES</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -219,8 +217,8 @@
                         </div>
                         <div id="crearArbitro" class="oculto">
                             <?php
-                        include("arbitro/crear.php");
-                        ?>
+							include("arbitro/crear.php");
+							?>
                         </div>
                     </div>
                 </div>
