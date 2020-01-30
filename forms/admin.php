@@ -135,28 +135,12 @@
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="AsignarResultados/campeonato.php" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Ásignar Resultados
-                                        </a>
-                  
+                                        <a class="nav-link" href="AsignarResultados/campeonato.php">Asignar Resultados</a>                  
                                     </li>
                                       <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="generarPartidos.php" id="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Generar Calendario
-                                        </a>
-                  
+										  <a href="generarPartidos.php" class="nav-link">Generar Calendario</a>                  
                                     </li>
                                 </ul>
-                                <div class="header_social_icon d-none d-lg-block">
-                                    <ul>
-                                        <li><a href="https://www.facebook.com/L.D.B.ORIENTAL/"><i class="ti-facebook"></i></a></li>
-                                        <li>
-                                            <a href="#"> <i class="ti-twitter"></i></a>
-                                        </li>
-                                        <li><a href="#"><i class="ti-instagram"></i></a></li>
-                                        <li><a href="#"><i class="ti-skype"></i></a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </nav>
                         <div class="header_social_icon d-block d-lg-none">
